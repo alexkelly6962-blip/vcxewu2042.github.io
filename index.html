@@ -3,114 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- স্ন্যাপচ্যাট বট ও প্রিভিউ পুরোপুরি হাইড করার মেটা ট্যাগ -->
-    <title> </title>
-    <meta name="description" content=" ">
-    <meta property="og:title" content=" ">
-    <meta property="og:description" content=" ">
-    <meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary">
-    <meta name="robots" content="noindex, nofollow, nosnippet">
-
+    <title>Secure Connection | Proceed to Destination</title>
     <style>
-        body {
-            margin: 0; padding: 0;
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100vh;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #0f172a !important; color: #ffffff; 
-            display: flex; justify-content: center; align-items: center; 
-            height: 100vh; text-align: center;
+            background-color: #0b0f19 !important; /* ব্রাউজার ফোর্স মোড প্রটেকশন */
+            color: #ffffff !important;
         }
-        .container { width: 90%; max-width: 360px; padding: 20px; }
-        .loader {
-            width: 45px; height: 45px;
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-top: 4px solid #3b82f6;
+        
+        /* ডার্ক এবং লাইট উভয় মোডেই ছবি শো করানোর জন্য ফিক্সড ব্যাকগ্রাউন্ড লেয়ার */
+        .bg-layer {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* ডট-নেটওয়ার্ক প্যাটার্ন ইমেজ কোডের ভেতরেই যুক্ত */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://w3.org' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%231e293b' fill-opacity='0.6'%3E%3Cpath fill-rule='evenodd' d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm1-61c3.148 0 5.7-2.552 5.7-5.7 0-3.148-2.552-5.7-5.7-5.7-3.148 0-5.7 2.552-5.7 5.7 0 3.148 2.552 5.7 5.7 5.7zm29 57c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM25 54c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm14 7c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z'/%3E%3C/g%3E%3C/svg%3E");
+            background-color: #0f172a;
+            z-index: 1;
+        }
+
+        /* কার্ডের মূল কন্টেইনার */
+        .wrapper {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .card {
+            background-color: #1e293b !important; 
+            padding: 40px 30px;
+            border-radius: 24px;
+            border: 1px solid #334155;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            max-width: 360px;
+            width: 90%;
+        }
+        .icon-container {
+            width: 65px;
+            height: 65px;
+            background-color: #2563eb;
             border-radius: 50%;
-            animation: spin 0.6s linear infinite;
-            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 25px;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        h1 { font-size: 19px; margin: 0 0 10px 0; font-weight: 600; }
-        p { font-size: 14px; color: #94a3b8; margin: 0 0 25px 0; }
-        .btn-redirect {
+        .icon-container svg {
+            width: 32px;
+            height: 32px;
+            fill: #ffffff;
+        }
+        h1 {
+            font-size: 24px;
+            margin: 0 0 14px 0;
+            color: #ffffff !important;
+            font-weight: 700;
+        }
+        p {
+            font-size: 14px;
+            color: #94a3b8 !important;
+            line-height: 1.6;
+            margin: 0 0 32px 0;
+        }
+        .btn-link {
             display: inline-block;
-            background: #3b82f6;
+            background-color: #2563eb !important;
             color: #ffffff !important;
             text-decoration: none;
-            padding: 14px 24px;
-            border-radius: 8px;
+            padding: 15px 24px;
+            border-radius: 12px;
             font-weight: 600;
             font-size: 16px;
-            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5);
-            transition: background 0.2s;
-            cursor: pointer;
-            border: none;
             width: 100%;
             box-sizing: border-box;
         }
-        .btn-redirect:hover { background: #2563eb; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="loader"></div>
-    <h1>Connecting Safely...</h1>
-    <p>Please wait while we transfer you securely.</p>
-    
-    <a href="#" id="redirectBtn" class="btn-redirect">Continue to Link</a>
+<div class="bg-layer"></div>
+
+<div class="wrapper">
+    <div class="card">
+        <div class="icon-container">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+        </div>
+        <h1 id="page-title">Secure Connection</h1><p id="page-desc">Verification successful. Click the button below to safely join and view the profile.</p>
+        
+        <!-- "YOUR_TARGET_URL_HERE" কেটে আপনার লিংকটি বসাবেন -->
+        <a href="https://citly.me/6e78n" id="page-btn" class="btn-link">Join Profile Now</a>
+    </div>
 </div>
 
 <script>
-    (function(){
-        // আপনার মূল বড় অফার লিংক (এখানে অলরেডি সেট করা আছে)
-        var targetUrl = "https://rnwdom.speclaidatlng.net/?utm_source=da57dc555e50572d&ban=snap&j5=1&j6=1&s1=233721&s2=2278054&s3=BOSS"; 
-
-        function startRedirect() {
-            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-
-            // অ্যান্ড্রয়েড ইন-অ্যাপ ব্রাউজার বাইপাস
-            if (/Android/i.test(userAgent)) {
-                if (window.location.protocol === 'file:') {
-                    window.location.href = targetUrl;
-                    return;
-                }
-                
-                var cleanUrl = targetUrl.replace(/^https?:\/\//, "");
-                var intentUrl = "intent://" + cleanUrl + "#Intent;scheme=https;action=android.intent.action.VIEW;end";
-                
-                try {
-                    window.location.href = intentUrl;
-                } catch(e) {
-                    window.location.href = targetUrl;
-                }
-                
-                setTimeout(function() {
-                    window.location.href = targetUrl;
-                }, 300);
-                return;
-            }
-
-            // আইফোন বা অন্যান্য ব্রাউজার রিডাইরেক্ট
-            window.location.href = targetUrl;
-            if (window.top && window.top !== window.self) { 
-                window.top.location.href = targetUrl; 
-            }
+    const translations = {
+        en: {
+            title: "Secure Connection",
+            desc: "Verification successful. Click the button below to safely join and view the profile.",
+            btn: "Join Profile Now"
+        },
+        fr: {
+            title: "Connexion Sécurisée",
+            desc: "Vérification réussie. Cliquez sur le bouton ci-dessous pour rejoindre et voir le profil en toute sécurité.",
+            btn: "Rejoindre le profil"
+        },
+        de: {
+            title: "Sichere Verbindung",
+            desc: "Überprüfung erfolgreich. Klicken Sie auf die Schaltfläche unten, um dem Profil sicher beizutreten.",
+            btn: "Profil jetzt beitreten"
+        },
+        nl: {
+            title: "Veilige Verbinding",
+            desc: "Verificatie succesvol. Klik op de onderstaande knop om veilig deel te nemen en het profiel te bekijken.",
+            btn: "Nu lid worden van profiel"
         }
+    };
 
-        var btn = document.getElementById('redirectBtn');
-        if (btn) {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                startRedirect();
-            });
-        }
+    const userLang = (navigator.language || navigator.userLanguage).substring(0, 2);
+    const langData = translations[userLang] || translations.en;
 
-        startRedirect();
-        setTimeout(startRedirect, 400);
-    })();
+    document.getElementById('page-title').innerText = langData.title;
+    document.getElementById('page-desc').innerText = langData.desc;
+    document.getElementById('page-btn').innerText = langData.btn;
 </script>
+
 </body>
 </html>
